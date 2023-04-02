@@ -1,0 +1,10 @@
+name: Trade
+version: 1.0
+author: Antoine
+main: fr.antoine.trade.Main
+api-version: 1.13
+commands:
+  trade:
+    description: Trade with a other player
+    permission: trade.use
+    permission-message: You can't do that

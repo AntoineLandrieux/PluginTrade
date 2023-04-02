@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="trade:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/trade_jar</output-path>
+    <root id="archive" name="trade.jar">
+      <element id="module-output" name="trade" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../../craftbukkit-1.16.5.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
