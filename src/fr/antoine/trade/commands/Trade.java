@@ -15,7 +15,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 import java.util.Objects;
 
 public class Trade implements CommandExecutor {
-    private static final int[] BORDER = {4,13,18,19,20,22,23,24,25};
     private final Main main;
 
     public Trade(Main main) {
@@ -48,7 +47,7 @@ public class Trade implements CommandExecutor {
         if (borderMeta != null)
             borderMeta.setDisplayName("§r§l");
         border.setItemMeta(borderMeta);
-        for (int i : BORDER)
+        for (int i : OnInteract.BORDERS)
             customInventory.setItem(i, border);
         if (playerSkullMeta != null)
             playerSkullMeta.setDisplayName("§r§l§9"+player.getName());
