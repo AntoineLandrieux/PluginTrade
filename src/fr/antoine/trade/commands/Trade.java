@@ -64,17 +64,17 @@ public class Trade implements CommandExecutor {
             } else if (args[0].equalsIgnoreCase("deny")) {
                 // trade <deny>
                 if (playerHashMap.get(player) == null) {
-                    player.sendMessage("§cNo request in progress");
+                    player.sendMessage("§cNo request in progress !");
                 } else {
-                    playerHashMap.get(player).sendMessage(player.getName() + " have deny");
-                    player.sendMessage("You refused the request");
+                    playerHashMap.get(player).sendMessage("§6" + player.getName() + "§c have deny");
+                    player.sendMessage("§cYou refused the request !");
                     playerHashMap.remove(player);
                 }
             } else {
                 // trade <player>
                 Player target = Bukkit.getPlayer(args[0]);
                 if (target == null) {
-                    player.sendMessage("§cThe player " + args[0] + " is offline or does not exist");
+                    player.sendMessage("§cThe player §6" + args[0] + "§c is offline or does not exist");
                 } else if (target == player) {
                     player.sendMessage("§cYou can't trade with yourself");
                 } else {
@@ -83,12 +83,12 @@ public class Trade implements CommandExecutor {
                     }
                     // TODO: add cooldown
                     playerHashMap.put(target, player);
-                    player.sendMessage("A request has been sent to " + args[0]);
-                    target.sendMessage("You have a trade request from player " + player.getName());
+                    player.sendMessage("§aA request has been sent to §9" + args[0]);
+                    target.sendMessage("§aYou have a trade request from player §9" + player.getName() + "\n§aYou can use §9/trade accept §aor §9/trade deny");
                 }
             }
         } else {
-            player.sendMessage("§l§cToo many argument, use :§r\n/trade <player>\n/trade <accept|deny>");
+            player.sendMessage("§cToo many argument, use :§r\n/trade <player>\n/trade <accept | deny>");
             return false;
         }
         return true;

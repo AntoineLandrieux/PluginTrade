@@ -22,57 +22,45 @@ public class OnInteract implements Listener {
     private final Inventory inventory2;
     private final Player player1;
     private final Player player2;
-    private boolean inventory1Closed;
-    private boolean inventory2Closed;
-
+    
     public OnInteract(Inventory inventory1, Inventory inventory2, Player player1, Player player2) {
         this.inventory1 = inventory1;
         this.inventory2 = inventory2;
         this.player1 = player1;
         this.player2 = player2;
-        this.inventory1Closed = false;
-        this.inventory2Closed = false;
     }
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
-        if ((!event.getInventory().equals(inventory1) && !event.getInventory().equals(inventory2)) && ((inventory1Closed) || (inventory2Closed)))
+        if (!event.getInventory().equals(inventory1) && !event.getInventory().equals(inventory2))
             return;
         Inventory inventory = event.getInventory();
         if (Objects.equals(inventory, inventory1)) {
-            if (!inventory2Closed) {
-                inventory2Closed = true;
-                for (int slot : PLAYERS) {
-                    ItemStack item = inventory2.getItem(slot);
-                    if (item != null)
-                        player1.getInventory().addItem(item);
-                } for (int slot : PLAYERS2) {
-                    ItemStack item = inventory2.getItem(slot);
-                    if (item != null)
-                        player2.getInventory().addItem(item);
-                }
-                inventory2.clear();
-                player2.closeInventory();
+            for (int slot : PLAYERS) {
+                ItemStack item = inventory2.getItem(slot);
+                if (item != null)
+                    player1.getInventory().addItem(item);
+            } for (int slot : PLAYERS2) {
+                ItemStack item = inventory2.getItem(slot);
+                if (item != null)
+                    player2.getInventory().addItem(item);
             }
+            inventory2.clear();
         } else if (Objects.equals(inventory, inventory2)) {
-            if (!inventory1Closed) {
-                inventory1Closed = true;
-                for (int slot : PLAYERS) {
-                    ItemStack item = inventory1.getItem(slot);
-                    if (item != null)
-                        player1.getInventory().addItem(item);
-                }
-                for (int slot : PLAYERS2) {
-                    ItemStack item = inventory1.getItem(slot);
-                    if (item != null)
-                        player2.getInventory().addItem(item);
-                }
-                inventory1.clear();
-                player2.closeInventory();
+            for (int slot : PLAYERS) {
+                ItemStack item = inventory1.getItem(slot);
+                if (item != null)
+                    player1.getInventory().addItem(item);
             }
+            for (int slot : PLAYERS2) {
+                ItemStack item = inventory1.getItem(slot);
+                if (item != null)
+                    player2.getInventory().addItem(item);
+            }
+            inventory1.clear();
         }
-        player1.sendMessage("§cTrade was canceled by " + event.getPlayer().getName());
-        player2.sendMessage("§cTrade was canceled by " + event.getPlayer().getName());
+        player1.sendMessage("§cTrade was canceled by §6" + event.getPlayer().getName() + "§c !");
+        player2.sendMessage("§cTrade was canceled by §6" + event.getPlayer().getName() + "§c !");
     }
 
     @EventHandler
