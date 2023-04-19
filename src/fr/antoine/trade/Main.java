@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
+        saveDefaultConfig();
         System.out.println("[TRADE]: plugin trade enable");
         Objects.requireNonNull(getCommand("trade")).setExecutor(new Trade(this));
     }

@@ -41,22 +41,27 @@ public class Trade implements CommandExecutor {
         customInventory.setItem(26, redWool);
         player.openInventory(customInventory);
         target.openInventory(customInventory);
-        Bukkit.getPluginManager().registerEvents(new OnInteract(customInventory, customInventory, player, target), main);
+        Bukkit.getPluginManager().registerEvents(new OnInteract(customInventory, customInventory, player, target, main), main);
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
-        if (!(sender instanceof Player))
+        if (!(sender instanceof Player)) {
+            Bukkit.getLogger().info("§9[§r" + main.getConfig().getString("server.name") +
+                    "§9]:§c Only players can use this command");
             return false;
+        }
         Player player = (Player) sender;
         if (args.length == 0) {
             // trade
-            player.sendMessage("§l§9Trade command:§r\n/trade <player>\n/trade <accept | deny>");
+            player.sendMessage("§9[§r" + main.getConfig().getString("server.name") +
+                    "§9]:§9 Trade command:§6\n/trade <player>\n/trade <accept | deny>");
         } else if (args.length == 1) {
             // trade <player|accept|deny>
             if (args[0].equalsIgnoreCase("accept")) {
                 // trade <accept>
                 if (playerHashMap.get(player) == null) {
-                    player.sendMessage("§cNo request in progress");
+                    player.sendMessage("§9[§r" + main.getConfig().getString("server.name") +
+                            "§9]:§c No request in progress");
                 } else {
                     init(playerHashMap.get(player), player);
                     playerHashMap.remove(player);
@@ -64,31 +69,49 @@ public class Trade implements CommandExecutor {
             } else if (args[0].equalsIgnoreCase("deny")) {
                 // trade <deny>
                 if (playerHashMap.get(player) == null) {
-                    player.sendMessage("§cNo request in progress !");
+                    player.sendMessage("§9[§r" + main.getConfig().getString("server.name") +
+                            "§9]:§c No request in progress !");
                 } else {
-                    playerHashMap.get(player).sendMessage("§6" + player.getName() + "§c have deny");
-                    player.sendMessage("§cYou refused the request !");
+                    playerHashMap.get(player).sendMessage("§9[§r"+main.getConfig().getString("server.name") +
+                            "§9]:§6 " + player.getName() + "§c have deny");
+                    player.sendMessage("§9[§r" + main.getConfig().getString("server.name") +
+                            "§9]:§c You refused the request !");
                     playerHashMap.remove(player);
                 }
             } else {
                 // trade <player>
                 Player target = Bukkit.getPlayer(args[0]);
                 if (target == null) {
-                    player.sendMessage("§cThe player §6" + args[0] + "§c is offline or does not exist");
+                    player.sendMessage("§9[§r" + main.getConfig().getString("server.name") +
+                            "§9]:§c The player §6" + args[0] + "§c is offline or does not exist");
                 } else if (target == player) {
-                    player.sendMessage("§cYou can't trade with yourself");
+                    player.sendMessage(
+                            "§9[§r"+main.getConfig().getString("server.name") +
+                                    "§9]:§c You can't trade with yourself"
+                    );
                 } else {
                     if (playerHashMap.get(target) != null) {
                         playerHashMap.remove(target);
                     }
                     // TODO: add cooldown
                     playerHashMap.put(target, player);
-                    player.sendMessage("§aA request has been sent to §9" + args[0]);
-                    target.sendMessage("§aYou have a trade request from player §9" + player.getName() + "\n§aYou can use §9/trade accept §aor §9/trade deny");
+                    player.sendMessage(
+                            "§9[§r" + main.getConfig().getString("server.name") +
+                                    "§9]:§a A request has been sent to §9" + args[0]
+                    );
+                    target.sendMessage(
+                            "§9[§r" + main.getConfig().getString("server.name") +
+                                    "§9]:§a You have a trade request from player §9" +
+                                    player.getName() +
+                                    "\n§aYou can use §9/trade accept §aor §9/trade deny"
+                    );
                 }
             }
         } else {
-            player.sendMessage("§cToo many argument, use :§r\n/trade <player>\n/trade <accept | deny>");
+            player.sendMessage(
+                    "§9[§r" + main.getConfig().getString("server.name") +
+                            "§9]:§c Too many argument, use :§6\n/trade <player>\n/trade <accept | deny>"
+            );
             return false;
         }
         return true;

@@ -1,0 +1,4 @@
+## Config for Trade plugin
+server:
+  ## You can add minecraft color code at strings
+  name: "§6Trade"

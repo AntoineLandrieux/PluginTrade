@@ -1,6 +1,7 @@
 package fr.antoine.trade.players;
 
 
+import fr.antoine.trade.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,12 +23,14 @@ public class OnInteract implements Listener {
     private final Inventory inventory2;
     private final Player player1;
     private final Player player2;
+    public Main main;
     
-    public OnInteract(Inventory inventory1, Inventory inventory2, Player player1, Player player2) {
+    public OnInteract(Inventory inventory1, Inventory inventory2, Player player1, Player player2, Main main) {
         this.inventory1 = inventory1;
         this.inventory2 = inventory2;
         this.player1 = player1;
         this.player2 = player2;
+        this.main = main;
     }
 
     @EventHandler
@@ -59,8 +62,8 @@ public class OnInteract implements Listener {
             }
             inventory1.clear();
         }
-        player1.sendMessage("§cTrade was canceled by §6" + event.getPlayer().getName() + "§c !");
-        player2.sendMessage("§cTrade was canceled by §6" + event.getPlayer().getName() + "§c !");
+        player1.sendMessage("§9[§r"+main.getConfig().getString("server.name")+"§9]:§cTrade was canceled by §6" + event.getPlayer().getName() + "§c !");
+        player2.sendMessage("§9[§r"+main.getConfig().getString("server.name")+"§9]:§cTrade was canceled by §6" + event.getPlayer().getName() + "§c !");
     }
 
     @EventHandler
