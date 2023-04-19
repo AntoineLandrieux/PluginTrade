@@ -58,8 +58,8 @@ public class Trade implements CommandExecutor {
                 if (playerHashMap.get(player) == null) {
                     player.sendMessage("§cNo request in progress");
                 } else {
-                    playerHashMap.remove(player);
                     init(playerHashMap.get(player), player);
+                    playerHashMap.remove(player);
                 }
             } else if (args[0].equalsIgnoreCase("deny")) {
                 // trade <deny>
