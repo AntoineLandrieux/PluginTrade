@@ -46,8 +46,8 @@ public class Trade implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
         if (!(sender instanceof Player)) {
-            Bukkit.getLogger().info("[" + main.getConfig().getString("server.name") +
-                    "]: Only players can use this command");
+            Bukkit.getLogger().info("§9[§r" + main.getConfig().getString("server.name") +
+                    "§9]:§c Only players can use this command");
             return false;
         }
         Player player = (Player) sender;
